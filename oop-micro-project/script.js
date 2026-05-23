@@ -1,44 +1,67 @@
-//Library project
-
-class Library {
+class MobileShop {
   constructor() {
-    this.books = []; //saari books ka record yaha par hai
+    this.mobiles = [];
   }
 
-  addBooks(books) {
-    this.books.push(...books);
-  }
-  listAllBooks() {
-    this.books.forEach(function (book,index) {
-      console.log(`${index + 1}> ${book.name} by ${book.author}`);
-    });
+  addMobile(mobile) {
+    this.mobiles.push(mobile);
   }
 }
 
-class Book {
-  constructor(name, isbn, price, author) {
-    this.name = name;
-    this.isbn = isbn;
+class Mobile {
+  constructor(brand, model, price, color) {
+    this.id = Math.floor(Math.random() * 10000);
+    this.model = model;
     this.price = price;
-    this.author = author;
-    this.readStatus = false;
-  }
-  info() {
-    console.log(
-      `${this.readStatus ? "✅" : "❌"} ${this.name} is written by ${this.author} and you have ${this.readStatus ? "read it" : "not read this book"} and is available at amazon at a price range of ${this.price}`,
-    );
+    this.color = color;
+    this.brand = brand;
+    this.sims = [];
   }
 
-  changeReadStatus() {
-    this.readStatus = !this.readStatus;
+  getMobileInfo() {
+    console.log(
+      `${this.brand} - ${this.model} - ${this.price} - ${this.color} - ${this.sims[0]?.brand + " " + this.sims[1]?.brand}`,
+    );
+    
+  }
+
+  insertSim(sim) {
+    if (this.sims.length === 2) {
+      console.log("sorry you already have 2 sims installed.");
+      return;
+    }
+    this.sims.push(sim);
   }
 }
 
-// let kokar = new Library();
-let kokarLibrary = new Library()
-let book1 = new Book("Wealth is Life", "2fasdfasd3afdsa3", 120, "Harsh Sharma");
-let book2 = new Book("Adventure", "asdfafsdfds322fas", 1200, "Saina");
-let book3 = new Book("Rich dad poor dad", "2fasdfasd3afd3332sa3", 1004, "Rahul");
+class Sim {
+  constructor(brand, balance) {
+    this.brand = brand;
+    this.balance = balance;
+  }
 
+  addBalance(balance) {
+    if (balance < 0) {
+      console.log("add balance give amount greater than 0");
+      return;
+    }
+    this.balance += balance;
+  }
 
-kokarLibrary.addBooks([book1,book2,book3])
+  listAllMobiles = () => {
+    this.mobiles.forEach((mb, index) => {
+      console.log(
+        `${index + 1} ${mb.brand} - ${mb.model} - ${mb.color} - ${mb.price}`,
+      );
+    });
+  };
+}
+
+let myMobileShop = new MobileShop();
+
+let samsung = new Mobile("Samsung", "Galaxy s25 ultra", 100000, "blue");
+
+let jio = new Sim("jio", 185);
+
+samsung.insertSim(jio);
+myMobileShop.addMobile(samsung);
